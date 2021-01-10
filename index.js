@@ -1,18 +1,18 @@
 var gutil = require('gulp-util');
 var through = require('through2');
 var toolFactory = require('./tool');
+var path = require('path');
 
 module.exports = function(options) {
-
     options = options || {};
-    options.patternIndex = options.patternIndex || /^\/index\.[a-f0-9]{8}\.html(\.gz)*$/gi;
+    options.patternIndex = options.patternIndex || /^\\index\.[a-f0-9]{8}\.html(\.gz)*$/gi;
     var tool = options.tool || toolFactory(options);
     var first = true;
 
     return through.obj(function (file, enc, callback) {
 
         if (first) {
-            options.dirRoot = options.dirRoot || file.base.replace(/\/$/, "");
+            options.dirRoot = options.dirRoot || path.dirname(file.path);
             gutil.log('gulp-cloudfront:', 'Root directory [', options.dirRoot, ']');
             first = !first;
         }
@@ -42,6 +42,4 @@ module.exports = function(options) {
         }
 
     });
-
-
 };
