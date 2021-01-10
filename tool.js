@@ -9,8 +9,8 @@ var gutil = require('gulp-util');
 module.exports = function(options) {
 
     var cloudfront = new AWS.CloudFront({
-        accessKeyId: options.key,
-        secretAccessKey: options.secret
+        accessKeyId: options.accessKeyId,
+        secretAccessKey: options.secretAccessKey
     });
 
     var updateDefaultRootObject = function (defaultRootObject) {
